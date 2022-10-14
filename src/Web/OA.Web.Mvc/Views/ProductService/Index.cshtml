@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ProductViewDto>
+
+<div class="card mt-5">
+    <div class="card-header">Products</div>
+    <div class="card-body">
+        <div class="btn-group">
+            <a id="createEditProductModal" data-bs-toggle="modal" asp-action="AddProduct" data-bs-target="#modal-action-product" class="btn btn-primary">
+                <i class="bi bi-plus"></i> Add Product
+            </a>
+        </div>
+        
+        <table class="table table-bordered table-striped table-condensed">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                        <td>
+                            <a id="editProductModal" data-bs-toggle="modal" asp-action="EditProduct" asp-route-id="@item.Id" data-bs-target="#modal-action-product"
+                           class="btn btn-info">
+                                <i class="bi bi-pencil"></i> Edit
+                            </a>
+                            <a id="deleteProductModal" data-bs-toggle="modal" asp-action="DeleteProduct" asp-route-id="@item.Id" data-bs-target="#modal-action-product" class="btn btn-danger">
+                                <i class="bi bi-trash"></i>  Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@await Html.PartialAsync("_Modal", new BootstrapModel { Id = "modal-action-product", AreaLabeledId = "modal-action-product-label", Size = ModalSize.Medium })
+
+@section scripts
+{
+    <script src="~/js/product-index.js" asp-append-version="true"></script>
+}

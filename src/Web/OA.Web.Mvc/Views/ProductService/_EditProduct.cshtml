@@ -1,0 +1,27 @@
+﻿@model ProductCreateOrUpdateDto
+
+<form asp-action="EditProduct" role="form">
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Edit Product" })
+    <div class="modal-body">
+        <input type="hidden" asp-for="Id"/>
+        <div class="row mb-3">
+            <label asp-for="Name" class="col-lg-3 col-form-label"></label>
+            <div class="col-lg-9">
+                <input asp-for="Name" class="form-control"/>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label asp-for="Price" class="col-lg-3  col-form-label"></label>
+            <div class="col-lg-9">
+                <input asp-for="Price" class="form-control"/>
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    @await Html.PartialAsync("_ModalFooter", new ModalFooter { SubmitButtonText = "Update" })
+</form>
+
+@{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
